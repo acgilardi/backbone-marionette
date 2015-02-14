@@ -8,7 +8,7 @@ module.exports = function(grunt) {
           compass: false
         },
         files: {
-          'assets/css/style.css':'assets/sass/style.scss'
+          'app/assets/css/style.css':'app/assets/sass/style.scss'
         }
       }
     },
@@ -16,17 +16,29 @@ module.exports = function(grunt) {
     bower: {
       install: {
         options: {
-          targetDir: 'assets/js/vendor',
+          targetDir: 'app/assets/js/vendor',
           layout: 'byComponent'
         }
       }
+    },
+
+    connect: {
+      server: {
+        options: {
+          port: 8000,
+          base: './app',
+          keepalive: true
+        }
+      }
     }
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-bower-task');
   //grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
-  grunt.registerTask('default', ['sass']);
+  grunt.registerTask('default', ['sass:dev']);
 
 };

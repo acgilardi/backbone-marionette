@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Marionette Contact Manager</title>
+  <!--
+  <link href="./assets/css/bootstrap.css" rel="stylesheet">
+  <link href="./assets/css/application.css" rel="stylesheet">
+  -->
+  <link href="./assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <span class="navbar-brand">Contact manager</span>
+    </div>
+  </div>
+</div>
+
+<div id="main-region" class="container">
+  <p>Here is static content in the web page. You'll notice that it gets replaced by our app as soon as we start it.</p>
+</div>
+
+<script src="./assets/js/vendor/jquery/jquery.js"></script>
+<script src="./assets/js/vendor/json2/json2.js"></script>
+<script src="./assets/js/vendor/underscore/underscore.js"></script>
+<script src="./assets/js/vendor/backbone/backbone.js"></script>
+<script src="./assets/js/vendor/backbone.wreqr/backbone.wreqr.js"></script>
+<script src="./assets/js/vendor/backbone.marionette/backbone.marionette.js"></script>
+
+<script type="text/template" id="static-template">
+  <p>This is text that was rendered by our Marionette app.</p>
+</script>
+
+<script type="text/template" id="different-static-template">
+  <p>This is from different template ...</p>
+</script>
+
+<script type="text/template" id="list-item-template">
+  <li>One item</li>
+</script>
+
+<script type="text/template" id="contact-template">
+  <p><%- firstName %><%- lastName %></p>
+</script>
+
+<script type="text/javascript">
+  var ContactManager = new Marionette.Application();
+
+  ContactManager.Contact = Backbone.Model.extend({});
+
+  ContactManager.addRegions({
+    mainRegion: '#main-region'
+  });
+
+  ContactManager.ContactView = Marionette.ItemView.extend({
+    template: '#contact-template'
+  });
+
+  ContactManager.StaticView = Marionette.ItemView.extend({
+    template: '#static-template',
+    tagName: 'span',
+    className: 'instruction',
+    id: 'static-view'
+  });
+
+  ContactManager.on('start', function() {
+
+    var staticView = new ContactManager.StaticView({
+      template: '#different-static-template'
+    });
+    ContactManager.mainRegion.show(staticView);
+
+    console.log('ContactManager started');
+  });
+
+  ContactManager.start();
+</script>
+
+</body>
+</html>

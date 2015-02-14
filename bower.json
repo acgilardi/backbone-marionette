@@ -24,5 +24,9 @@
     "underscore": "~1.7.0",
     "bootstrap-sass-official": "~3.3.3",
     "json2": "*"
+  },
+  "exportsOverride": {
+    "bootstrap-sass-official": {
+    }
   }
 }
